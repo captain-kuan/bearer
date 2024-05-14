@@ -25,10 +25,10 @@
           <router-view name="menu"></router-view>
         </div>
       </menu>
-      <div>
+      <div class="flex-1 flex flex-col">
         <div class="border-b">
           <n-tabs type="card" size="small" closable>
-            <n-tab-pane name="oasis" tab="Oasis"> </n-tab-pane>
+            <n-tab name="oasis" tab="Oasis"> </n-tab>
           </n-tabs>
         </div>
         <router-view name="main"></router-view>
