@@ -1,7 +1,7 @@
 <template>
   <div class="flex-1 flex flex-col">
     <div class="flex flex-1">
-      <menu class="w-1/3 min-w-64 border-r flex flex-col">
+      <MutColumn :width="350" :min-width="255" :max-width="600">
         <div class="flex justify-between p-2 border-b">
           <n-button text>
             <n-icon class="mr-2"><PersonOutline /></n-icon> My Workspace
@@ -24,9 +24,9 @@
           </div>
           <router-view name="menu"></router-view>
         </div>
-      </menu>
+      </MutColumn>
       <div class="flex-1 flex flex-col">
-        <div class="border-b">
+        <div class="border-b px-2">
           <n-tabs type="card" size="small" closable>
             <n-tab name="oasis" tab="Oasis"> </n-tab>
           </n-tabs>
@@ -34,7 +34,7 @@
         <router-view name="main"></router-view>
       </div>
     </div>
-    <footer>footer</footer>
+    <footer class=" border-t">footer</footer>
   </div>
 </template>
 

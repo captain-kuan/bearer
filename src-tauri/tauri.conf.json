@@ -12,6 +12,12 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "clipboard": {
+        "all": true
+      },
+      "http": {
+        "request": true
+      },
       "shell": {
         "all": false,
         "open": true
@@ -31,6 +37,7 @@
     "windows": [
       {
         "decorations": false,
+        "transparent": true,
         "title": "bearer",
         "width": 800,
         "height": 600
