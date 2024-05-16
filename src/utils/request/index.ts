@@ -21,7 +21,7 @@ export interface Response<T = any> {
 
 let onProgressId = 0
 
-function http<T = any>(
+export function http<T = any>(
   { url, data, method, headers, onDownloadProgress, signal, beforeRequest, afterRequest }: HttpOption,
 ) {
   const successHandler = (res: AxiosResponse<Response<T>>) => {
