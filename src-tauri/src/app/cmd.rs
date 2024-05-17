@@ -3,6 +3,7 @@ use tauri::{command, Window};
 // https://tauri.app/v1/guides/features/command/#complete-example
 use serde_json::{json, Value};
 
+
 #[derive(serde::Serialize)]
 pub struct RespData<T: serde::Serialize> {
     data: T,

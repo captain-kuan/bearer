@@ -14,14 +14,13 @@
         <n-icon :component="EllipsisHorizontalOutline"></n-icon>
       </n-button>
     </div>
-    <n-menu
+    <n-tree
       default-expand-all
-      :render-label="renderMenuLabel"
       :root-indent="5"
       dropdown-placement="left"
       size="tiny"
-      :options="menus"
-    ></n-menu>
+      :data="menus"
+    ></n-tree>
   </div>
 </template>
 
@@ -48,9 +47,21 @@ function renderMethod(method: METHOD) {
 }
 const menus = [
   {
+    id: "1",
     label: "且听风吟",
+    type: "collection",
     key: "hear-the-wind-sing",
     children: [
+      {
+        label: "text",
+        children: [
+          {
+            label: "get text",
+            key: "/get/text",
+            icon: renderMethod("GET"),
+          },
+        ],
+      },
       {
         label: "get Data",
         key: "/get/data",

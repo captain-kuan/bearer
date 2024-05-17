@@ -25,7 +25,7 @@
           placeholder="method"
           class="w-36"
         />
-        <n-input v-model:value="api.url" />
+        <var-input v-model:value="api.url" />
         <n-button @click="send" type="primary">send</n-button>
       </n-input-group>
     </div>
@@ -45,7 +45,7 @@
               @update:checked-row-keys="handleParamsCheck"
             />
           </n-tab-pane>
-          <n-tab-pane name="Authorization" tab="Authorization">
+          <n-tab-pane name="Authorization" tab="Auth">
             Authorization
           </n-tab-pane>
           <n-tab-pane name="Headers" tab="Headers">
@@ -76,8 +76,7 @@
               <div class="h-64" ref="editorRef"></div>
             </div>
           </n-tab-pane>
-          <n-tab-pane name="Pre-request Script" tab="pre-script"></n-tab-pane>
-          <n-tab-pane name="Tests" tab="Tests"></n-tab-pane>
+          <n-tab-pane name="Script" tab="Scripts"></n-tab-pane>
           <n-tab-pane name="Settings" tab="Settings"></n-tab-pane>
         </n-tabs>
       </MutColumn>
@@ -88,13 +87,15 @@
 
 <script setup lang="ts">
 import { ChevronDown, SaveOutline } from "@vicons/ionicons5";
-import { http } from "@/utils/request";
+import { http } from "@tauri-apps/api";
 import MutColumn from "@/components/MutColumn.vue";
 import { NInput } from "naive-ui";
 import type { DataTableColumns, DataTableRowKey } from "naive-ui";
 import { InternalRowData } from "naive-ui/es/data-table/src/interface";
 import { useEditor } from "@/hooks/useEditor";
 import { editor } from "monaco-editor";
+import { HttpOptions } from "@tauri-apps/api/http";
+
 function* generateId() {
   let id = 0;
   while (true) {
@@ -107,7 +108,9 @@ const route = useRoute();
 const apiId = computed(() => {
   return route?.params?.api;
 });
-const api = reactive({
+const api = reactive<
+  HttpOptions & { collectionId: string; name: string; collectionName: string }
+>({
   collectionId: "1",
   name: "getArticleList",
   collectionName: "localhost",
@@ -288,7 +291,11 @@ async function send() {
     headers.value
   );
 
-  const res = await http({ url: api.url, method: api.method });
+  const res = await http.fetch("http://10.219.113.183:54001/dat-api/lifecore/system/user/getInfo", { method: api.method }).catch(err=>{
+    console.log(err);
+  });
+  console.log(res);
+  
 }
 const editorRef = ref();
 let editorSign: editor.IStandaloneCodeEditor;

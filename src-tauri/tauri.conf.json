@@ -16,6 +16,8 @@
         "all": true
       },
       "http": {
+        "scope": ["http://*", "https://*"],
+        "all": true,
         "request": true
       },
       "shell": {
@@ -46,6 +48,7 @@
     "security": {
       "csp": null
     },
+    "macOSPrivateApi": true,
     "bundle": {
       "active": true,
       "targets": "all",
