@@ -87,14 +87,13 @@
 
 <script setup lang="ts">
 import { ChevronDown, SaveOutline } from "@vicons/ionicons5";
-import { http } from "@tauri-apps/api";
 import MutColumn from "@/components/MutColumn.vue";
 import { NInput } from "naive-ui";
 import type { DataTableColumns, DataTableRowKey } from "naive-ui";
 import { InternalRowData } from "naive-ui/es/data-table/src/interface";
 import { useEditor } from "@/hooks/useEditor";
 import { editor } from "monaco-editor";
-import { HttpOptions } from "@tauri-apps/api/http";
+import { fetch } from "@tauri-apps/plugin-http";
 
 function* generateId() {
   let id = 0;
@@ -109,7 +108,7 @@ const apiId = computed(() => {
   return route?.params?.api;
 });
 const api = reactive<
-  HttpOptions & { collectionId: string; name: string; collectionName: string }
+ any& { collectionId: string; name: string; collectionName: string }
 >({
   collectionId: "1",
   name: "getArticleList",
@@ -290,8 +289,7 @@ async function send() {
     checkedHeaderIds.value,
     headers.value
   );
-
-  const res = await http.fetch("http://10.219.113.183:54001/dat-api/lifecore/system/user/getInfo", { method: api.method }).catch(err=>{
+  const res = await fetch("https://v2.tauri.app/references/javascript/http/#fetch", { method: api.method }).catch(err=>{
     console.log(err);
   });
   console.log(res);
@@ -306,6 +304,7 @@ watch(bodyType, (type) => {
       if (editorSign) {
         return;
       }
+      
       let { editor } = useEditor({ dom: editorRef.value });
       editorSign = editor;
     });

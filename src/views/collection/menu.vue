@@ -99,6 +99,15 @@ function renderMenuLabel(menu: MenuOption) {
     { default: () => menu.label }
   );
 }
+const router = useRouter()
+onMounted(()=>{
+  router.push({
+    name: "CollectionSender",
+        params: {
+          api: '/update/data',
+        },
+  })
+})
 </script>
 
 <style lang="less" scoped></style>
