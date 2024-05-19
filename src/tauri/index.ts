@@ -1,38 +1,40 @@
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from "@tauri-apps/api/core";
 
 declare global {
   interface Window {
-    on_progress: any
+    on_progress: any;
   }
 }
 
-export async function call(url: string, params?: any, on_progress_id?: string): Promise<any> {
-  return invoke('call', { url, params, progress: on_progress_id })
+export async function call(
+  url: string,
+  params?: any,
+  on_progress_id?: string
+): Promise<any> {
+  return invoke("call", { url, params, progress: on_progress_id });
 }
 
 export async function get(key: string): Promise<string> {
-  return invoke('get', { key })
+  return invoke("get", { key });
 }
 
 export async function set(key: string, value: string): Promise<any> {
-  value = value.trim()
-  const env = JSON.parse(localStorage.getItem('env') || '{}')
-  localStorage.setItem('env', JSON.stringify({ ...env, [key]: value }))
-  return invoke('set', { key, value })
+  value = value.trim();
+  const env = JSON.parse(localStorage.getItem("env") || "{}");
+  localStorage.setItem("env", JSON.stringify({ ...env, [key]: value }));
+  return invoke("set", { key, value });
 }
 
-export const isTauri = window.__TAURI__
+export const isTauri = true;
 
 export async function loadEnvFromLocalStorage() {
-  if (!isTauri)
-    return
-  const env = JSON.parse(localStorage.getItem('env') || '{}')
-  for (const key in env)
-    await invoke('set', { key, value: env[key] })
+  if (!isTauri) return;
+  const env = JSON.parse(localStorage.getItem("env") || "{}");
+  for (const key in env) await invoke("set", { key, value: env[key] });
 }
 
 export async function fetch(url: string): Promise<string> {
-  return invoke('fetch', { url })
+  return invoke("fetch", { url });
 }
 
-export default call
+export default call;

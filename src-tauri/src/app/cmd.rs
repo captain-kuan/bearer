@@ -46,7 +46,7 @@ async fn _call(
         Some(move |data: ChatMessage| {
             let data = serde_json::to_string(&data).unwrap_or_default();
             let val = format!("window['on_progress']['{id}']({{event:{data}}})");
-            window.eval(&val).ok();
+            // window.eval(&val).ok();
         })
     } else {
         None
