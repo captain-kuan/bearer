@@ -108,7 +108,7 @@ const apiId = computed(() => {
   return route?.params?.api;
 });
 const api = reactive<
- any& { collectionId: string; name: string; collectionName: string }
+  any & { collectionId: string; name: string; collectionName: string }
 >({
   collectionId: "1",
   name: "getArticleList",
@@ -289,11 +289,15 @@ async function send() {
     checkedHeaderIds.value,
     headers.value
   );
-  const res = await fetch("https://v2.tauri.app/references/javascript/http/#fetch", { method: api.method }).catch(err=>{
+  const res = await fetch(
+    "http://10.219.113.183:54001/dat-api/lifecore/code",
+    { method: api.method }
+  ).then(async res=>{
+    console.log(await res.json());
+  }).catch((err) => {
     console.log(err);
   });
   console.log(res);
-  
 }
 const editorRef = ref();
 let editorSign: editor.IStandaloneCodeEditor;
@@ -304,7 +308,7 @@ watch(bodyType, (type) => {
       if (editorSign) {
         return;
       }
-      
+
       let { editor } = useEditor({ dom: editorRef.value });
       editorSign = editor;
     });

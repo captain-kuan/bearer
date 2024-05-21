@@ -20,7 +20,7 @@ type Direction = "right" | "bottom";
 
 const props = withDefaults(
   defineProps<{
-    width: number;
+    width?: number;
     minWidth?: number;
     maxWidth?: number;
     direction?: Direction;
